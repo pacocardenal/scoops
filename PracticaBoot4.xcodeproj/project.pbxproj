@@ -101,40 +101,32 @@
 		5D931CE41E83EEEA005051E9 /* PracticaBoot4 */ = {
 			isa = PBXGroup;
 			children = (
-				5D8F3B9D1E843C30004DB370 /* Azure frameworks */,
-				5D931CF71E83F069005051E9 /* AppDelegate */,
-				5D931CF81E83F076005051E9 /* ViewControllers */,
-				5D931CF91E83F087005051E9 /* Storyboards */,
+				5D931CE51E83EEEA005051E9 /* AppDelegate.swift */,
+				5D931CF81E83F076005051E9 /* Controllers */,
+				5D931CF91E83F087005051E9 /* Views */,
 				5D931CFB1E83F0A8005051E9 /* Resources */,
+				5D8F3B9D1E843C30004DB370 /* Azure frameworks */,
 			);
 			path = PracticaBoot4;
 			sourceTree = "<group>";
 		};
-		5D931CF71E83F069005051E9 /* AppDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				5D931CE51E83EEEA005051E9 /* AppDelegate.swift */,
-			);
-			name = AppDelegate;
-			sourceTree = "<group>";
-		};
-		5D931CF81E83F076005051E9 /* ViewControllers */ = {
+		5D931CF81E83F076005051E9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				5D931D001E83F5D1005051E9 /* MainTimeLine.swift */,
-				5D931D081E8414BB005051E9 /* All users */,
-				5D931D091E8414CA005051E9 /* Auth Users */,
+				5D931D081E8414BB005051E9 /* Public */,
+				5D931D091E8414CA005051E9 /* Private */,
 			);
-			name = ViewControllers;
+			name = Controllers;
 			sourceTree = "<group>";
 		};
-		5D931CF91E83F087005051E9 /* Storyboards */ = {
+		5D931CF91E83F087005051E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				5D931CEE1E83EEEA005051E9 /* LaunchScreen.storyboard */,
 				5D931CFC1E83F110005051E9 /* TimeLine.storyboard */,
 			);
-			name = Storyboards;
+			name = Views;
 			sourceTree = "<group>";
 		};
 		5D931CFB1E83F0A8005051E9 /* Resources */ = {
@@ -146,21 +138,21 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		5D931D081E8414BB005051E9 /* All users */ = {
+		5D931D081E8414BB005051E9 /* Public */ = {
 			isa = PBXGroup;
 			children = (
 				5D931D021E83F67C005051E9 /* PostReview.swift */,
 			);
-			name = "All users";
+			name = Public;
 			sourceTree = "<group>";
 		};
-		5D931D091E8414CA005051E9 /* Auth Users */ = {
+		5D931D091E8414CA005051E9 /* Private */ = {
 			isa = PBXGroup;
 			children = (
 				5D931D041E83F773005051E9 /* AuthorPostList.swift */,
 				5D931D061E83F7BA005051E9 /* NewPostController.swift */,
 			);
-			name = "Auth Users";
+			name = Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

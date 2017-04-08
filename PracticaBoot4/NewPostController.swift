@@ -113,7 +113,7 @@ extension NewPostController {
             let container = blobClient?.containerReference(fromName: "fotos")
             let blobBlock = container?.blockBlobReference(fromName: String("\(UUID().uuidString).jpg"))
             blobBlock?.upload(from: data, completionHandler: { (error) in
-                if error == nil {
+                if (error == nil) {
                     completionHandler(blobBlock?.blobName)
                 } else {
                     completionHandler(nil)

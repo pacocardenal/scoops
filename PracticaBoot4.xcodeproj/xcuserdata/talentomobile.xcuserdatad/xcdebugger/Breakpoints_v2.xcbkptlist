@@ -19,5 +19,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PracticaBoot4/AuthorPostList.swift"
+            timestampString = "513342446.671189"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PracticaBoot4/AuthorPostList.swift"
+            timestampString = "513342748.549553"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PracticaBoot4.AuthorPostList.tableView (__ObjC.UITableView, editActionsForRowAt : Foundation.IndexPath) -&gt; Swift.Optional&lt;Swift.Array&lt;__ObjC.UITableViewRowAction&gt;&gt;"
+                  moduleName = "PracticaBoot4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/talentomobile/Desktop/PracticaBoot4/PracticaBoot4/AuthorPostList.swift"
+                  timestampString = "513342748.758712"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PracticaBoot4.AuthorPostList.(tableView (__ObjC.UITableView, editActionsForRowAt : Foundation.IndexPath) -&gt; Swift.Optional&lt;Swift.Array&lt;__ObjC.UITableViewRowAction&gt;&gt;).(closure #1)"
+                  moduleName = "PracticaBoot4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/talentomobile/Desktop/PracticaBoot4/PracticaBoot4/AuthorPostList.swift"
+                  timestampString = "513342748.760543"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "23">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

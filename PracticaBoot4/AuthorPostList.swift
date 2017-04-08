@@ -1,19 +1,12 @@
-//
-//  AuthorPostList.swift
-//  PracticaBoot4
-//
-//  Created by Juan Antonio Martin Noguera on 23/03/2017.
-//  Copyright © 2017 COM. All rights reserved.
-//
-
 import UIKit
 
 class AuthorPostList: UITableViewController {
 
     let cellIdentifier = "POSTAUTOR"
     
-    var model = ["test1", "test2"]
+    var model: [Any] = []
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,16 +16,13 @@ class AuthorPostList: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        self.refreshControl?.addTarget(self, action: #selector(hadleRefresh(_:)), for: UIControlEvents.valueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
     }
     
-    func hadleRefresh(_ refreshControl: UIRefreshControl) {
-        refreshControl.endRefreshing()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        pullModel()
     }
 
     // MARK: - Table view data source
@@ -42,21 +32,36 @@ class AuthorPostList: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if model.isEmpty {
+            return 0
+        }
         return model.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel?.text = model[indexPath.row]
-    
+        //cell.textLabel?.text = model[indexPath.row]
+        let item = model[indexPath.row] as! Dictionary<String, Any>
+        cell.textLabel?.text = (item["titulo"] as! String)
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let publish = UITableViewRowAction(style: .normal, title: "Publicar") { (action, indexPath) in
-            // Codigo para publicar el post
+            let item = self.model[indexPath.row] as! Dictionary<String, Any>
+            let paramsToCloud = ["id" : item["id"], "estado" : true]
+            
+            let client = MSClient(applicationURLString: "https://boot4camplabpaco.azurewebsites.net")
+            client.invokeAPI("publishPosts", body: nil, httpMethod: "PUT", parameters: paramsToCloud, headers: nil) { (result, response, error) in
+                if let _ = error {
+                    print("\(error?.localizedDescription)")
+                    return
+                }
+                self.pullModel()
+            }
         }
         publish.backgroundColor = UIColor.green
         let deleteRow = UITableViewRowAction(style: .destructive, title: "Eliminar") { (action, indexPath) in
@@ -65,6 +70,26 @@ class AuthorPostList: UITableViewController {
         return [publish, deleteRow]
     }
 
+    // MARK: - Utils
+    func pullModel() {
+        
+        let client = MSClient(applicationURLString: "https://boot4camplabpaco.azurewebsites.net")
+        client.invokeAPI("GetAllMyPosts", body: nil, httpMethod: "GET", parameters: nil, headers: nil) { (result, response, error) in
+            if let _ = error {
+                print("\(error?.localizedDescription)")
+            }
+            print("\(result)")
+            self.model = result as! [Any]
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+    }
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        refreshControl.endRefreshing()
+    }
    
     /*
     // Override to support conditional editing of the table view.

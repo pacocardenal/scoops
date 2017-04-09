@@ -16,6 +16,7 @@ class NewPostController: UIViewController, UINavigationControllerDelegate {
     var client: MSClient!
     let tableName = "noticia"
     let azureAppServicesEndpoint = "https://boot4camplabpaco.azurewebsites.net"
+    var userId: String! = ""
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -127,7 +128,7 @@ extension NewPostController {
     func newPostInService(_ title: String, _ description: String, _ status: Bool, imgData: Data?) {
         let posts = client.table(withName: tableName)
         
-        posts.insert([ "titulo" : title, "texto" : description, "publicada" : status ]) { (result, error) in
+        posts.insert([ "titulo" : title, "texto" : description, "publicada" : status, "autor" : userId ]) { (result, error) in
             if let _ = error {
                 print("\(error)")
                 return

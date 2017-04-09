@@ -4,7 +4,10 @@ class AuthorPostList: UITableViewController {
 
     let cellIdentifier = "POSTAUTOR"
     
+    @IBOutlet weak var addNewPostButton: UIBarButtonItem!
     var model: [Any] = []
+    let client = MSClient(applicationURLString: "https://boot4camplabpaco.azurewebsites.net")
+    var userId: String!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -13,16 +16,37 @@ class AuthorPostList: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // Uncomment the following line to display an Edvarbutton in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
+        client.login(withProvider: "Facebook", controller: self, animated: true) { (user, error) in
+            if let _ = error {
+                print("\(error?.localizedDescription)")
+                return
+            } else {
+                print(user!)
+                self.userId = user?.userId
+                self.pullModel()
+                self.addNewPostButton.isEnabled = true
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        pullModel()
+        //pullModel()
+//        client.login(withProvider: "Facebook", urlScheme: "", controller: self, animated: true) { (user, error) in
+//            if let _ = error {
+//                print("\(error?.localizedDescription)")
+//                return
+//            } else {
+//                print(user?.userId)
+//            }
+//        }
+        
+
     }
 
     // MARK: - Table view data source
@@ -52,13 +76,12 @@ class AuthorPostList: UITableViewController {
         
         let publish = UITableViewRowAction(style: .normal, title: "Publicar") { (action, indexPath) in
             let item = self.model[indexPath.row] as! Dictionary<String, Any>
-            let paramsToCloud = ["id" : item["id"], "estado" : true]
+            let paramsToCloud = ["id" : item["id"], "estado" : "true"]
             
-            let client = MSClient(applicationURLString: "https://boot4camplabpaco.azurewebsites.net")
-            client.invokeAPI("publishPosts", body: nil, httpMethod: "PUT", parameters: paramsToCloud, headers: nil) { (result, response, error) in
+            self.client.invokeAPI("publishPosts", body: nil, httpMethod: "PUT", parameters: paramsToCloud, headers: nil) { (result, response, error) in
                 if let _ = error {
                     print("\(error?.localizedDescription)")
-                    return
+                    //return
                 }
                 self.pullModel()
             }
@@ -73,8 +96,8 @@ class AuthorPostList: UITableViewController {
     // MARK: - Utils
     func pullModel() {
         
-        let client = MSClient(applicationURLString: "https://boot4camplabpaco.azurewebsites.net")
-        client.invokeAPI("GetAllMyPosts", body: nil, httpMethod: "GET", parameters: nil, headers: nil) { (result, response, error) in
+        let paramsToCloud = ["usuario" : userId]
+        client.invokeAPI("GetAllMyPosts", body: nil, httpMethod: "GET", parameters: paramsToCloud, headers: nil) { (result, response, error) in
             if let _ = error {
                 print("\(error?.localizedDescription)")
             }
@@ -89,6 +112,7 @@ class AuthorPostList: UITableViewController {
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         refreshControl.endRefreshing()
+        pullModel()
     }
    
     /*
@@ -126,14 +150,19 @@ class AuthorPostList: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "addNewPost" {
+            let secondViewController = segue.destination as! NewPostController
+            
+            secondViewController.userId = userId
+        }
     }
-    */
+    
 
 }
